@@ -93,7 +93,7 @@ class CmiCheckpoint < ActiveRecord::Base
         rescue ArgumentError
           error = [I18n.translate(:"cmi.label_scheduled_role_effort", :role => role),
                    I18n.translate(:"activerecord.errors.messages.not_a_number")].join " "
-          errors.add_to_base(error)
+          errors.add(:base, error)
         end
       end
     end
