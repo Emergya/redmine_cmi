@@ -1,3 +1,8 @@
+<%
+# Fix error when update plugin from previous version
+Setting.plugin_redmine_cmi['providers_tracker'] = [Setting.plugin_redmine_cmi['providers_tracker']] if !Setting.plugin_redmine_cmi['providers_tracker'].is_a?(Array)
+%>
+
 <div class="splitcontentleft">
   <fieldset>
     <legend><%=l :label_tracker_plural %></legend>
