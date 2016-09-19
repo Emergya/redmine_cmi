@@ -164,7 +164,7 @@ module CMI
                            :joins => 'LEFT JOIN custom_values AS paid_amount ON issues.id = paid_amount.customized_id 
                                       LEFT JOIN custom_values AS paid_date ON issues.id = paid_date.customized_id',
                            :conditions => ["issues.project_id = ? AND
-                                            issues.tracker_id = ? AND 
+                                            issues.tracker_id IN (?) AND 
                                             issues.status_id IN (?) AND 
                                             paid_amount.custom_field_id = ? AND 
                                             paid_date.custom_field_id = ? AND 
@@ -191,7 +191,7 @@ module CMI
         result = Issue.sum('custom_values.value', 
                            :include => :custom_values,
                            :conditions => ["issues.project_id = ? AND
-                                            issues.tracker_id = ? AND 
+                                            issues.tracker_id IN (?) AND 
                                             custom_values.custom_field_id = ?", 
                                             project.id, 
                                             providers_tracker_id, 
@@ -694,7 +694,7 @@ module CMI
                            :joins => 'LEFT JOIN custom_values AS amount ON issues.id = amount.customized_id 
                                       LEFT JOIN custom_values AS paid_date ON issues.id = paid_date.customized_id',
                            :conditions => ["issues.project_id = ? AND
-                                            issues.tracker_id = ? AND
+                                            issues.tracker_id IN (?) AND
                                             issues.status_id IN (?) AND
                                             amount.custom_field_id = ? AND
                                             paid_date.custom_field_id = ? AND
@@ -727,7 +727,7 @@ module CMI
                            :joins => 'LEFT JOIN custom_values AS amount ON issues.id = amount.customized_id 
                                       LEFT JOIN custom_values AS paid_date ON issues.id = paid_date.customized_id',
                            :conditions => ["issues.project_id = ? AND
-                                            issues.tracker_id = ? AND
+                                            issues.tracker_id IN (?) AND
                                             amount.custom_field_id = ? AND
                                             paid_date.custom_field_id = ? AND
                                             paid_date.value >= ? AND

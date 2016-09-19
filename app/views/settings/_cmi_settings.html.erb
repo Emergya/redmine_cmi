@@ -41,7 +41,7 @@
       <label><%=l :'cmi.label_providers' %></label>
       <%= select_tag 'settings[providers_tracker]',
           ('<option></option>' +
-            options_from_collection_for_select(Tracker.all, :id, :name, @settings['providers_tracker'].to_i)).html_safe %>
+            options_from_collection_for_select(Tracker.all, :id, :name, @settings['providers_tracker'])).html_safe, :multiple => true %>
     </p>
     
   </fieldset>
@@ -126,7 +126,8 @@
       <label><%=l :'cmi.label_provider_amount_custom_field' %></label>
       <%
         if Setting.plugin_redmine_cmi['providers_tracker'].present? 
-          options = ('<option></option>'+options_from_collection_for_select(Tracker.find(Setting.plugin_redmine_cmi['providers_tracker']).custom_fields, :id, :name, @settings['providers_tracker_custom_field'].to_i)).html_safe
+          shared_custom_fields = Tracker.find(Setting.plugin_redmine_cmi['providers_tracker']).map(&:custom_fields).reduce(:&)
+          options = ('<option></option>'+options_from_collection_for_select(shared_custom_fields, :id, :name, @settings['providers_tracker_custom_field'].to_i)).html_safe
         else
           options = ('<option></option>').html_safe
         end
@@ -145,7 +146,8 @@
       <label><%=l :'cmi.label_provider_vesting_date_custom_field' %></label>
       <%
         if Setting.plugin_redmine_cmi['providers_tracker'].present? 
-          options = ('<option></option>'+options_from_collection_for_select(Tracker.find(Setting.plugin_redmine_cmi['providers_tracker']).custom_fields, :id, :name, @settings['providers_tracker_vesting_date_custom_field'].to_i)).html_safe
+          shared_custom_fields = Tracker.find(Setting.plugin_redmine_cmi['providers_tracker']).map(&:custom_fields).reduce(:&)
+          options = ('<option></option>'+options_from_collection_for_select(shared_custom_fields, :id, :name, @settings['providers_tracker_vesting_date_custom_field'].to_i)).html_safe
         else
           options = ('<option></option>').html_safe
         end
@@ -164,7 +166,8 @@
       <label><%=l :'cmi.label_provider_paid_date_custom_field' %></label>
       <%
         if Setting.plugin_redmine_cmi['providers_tracker'].present? 
-          options = ('<option></option>'+options_from_collection_for_select(Tracker.find(Setting.plugin_redmine_cmi['providers_tracker']).custom_fields, :id, :name, @settings['providers_tracker_paid_date_custom_field'].to_i)).html_safe
+          shared_custom_fields = Tracker.find(Setting.plugin_redmine_cmi['providers_tracker']).map(&:custom_fields).reduce(:&)
+          options = ('<option></option>'+options_from_collection_for_select(shared_custom_fields, :id, :name, @settings['providers_tracker_paid_date_custom_field'].to_i)).html_safe
         else
           options = ('<option></option>').html_safe
         end
